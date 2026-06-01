@@ -9,17 +9,61 @@
 </head>
 <body>
 
-    <div class="app-container">
+    <header>
         <h1>Student Task Manager</h1>
-        <p class="subtitle">Organize your university tasks easily</p>
+        <p>Organize university tasks, deadlines, and priorities</p>
+    </header>
 
-        <div class="input-section">
-            <input type="text" id="taskInput" placeholder="Enter a new task">
-            <button onclick="addTask()">Add</button>
-        </div>
+    <main class="dashboard">
 
-        <ul id="taskList"></ul>
-    </div>
+        <section class="stats">
+            <div class="stat-card">
+                <h2 id="totalTasks">0</h2>
+                <p>Total Tasks</p>
+            </div>
+
+            <div class="stat-card">
+                <h2 id="completedTasks">0</h2>
+                <p>Completed</p>
+            </div>
+
+            <div class="stat-card">
+                <h2 id="pendingTasks">0</h2>
+                <p>Pending</p>
+            </div>
+        </section>
+
+        <section class="task-form">
+            <h2>Add New Task</h2>
+
+            <input type="text" id="taskInput" placeholder="Enter task title">
+
+            <div class="form-row">
+                <select id="categoryInput">
+                    <option value="University">University</option>
+                    <option value="Work">Work</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Project">Project</option>
+                </select>
+
+                <select id="priorityInput">
+                    <option value="Low">Low Priority</option>
+                    <option value="Medium">Medium Priority</option>
+                    <option value="High">High Priority</option>
+                </select>
+            </div>
+
+            <input type="date" id="dateInput">
+
+            <button onclick="addTask()">Add Task</button>
+        </section>
+
+        <section class="task-section">
+            <h2>My Tasks</h2>
+            <ul id="taskList"></ul>
+        </section>
+
+    </main>
 
     <script src="script.js"></script>
 </body>
