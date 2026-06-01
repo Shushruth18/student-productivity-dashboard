@@ -1,222 +1,212 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Task Manager Dashboard</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Productivity Dashboard</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#">TaskFlow</a>
+<nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">TaskFlow</a>
+    <div class="navbar-nav ms-auto">
+      <a class="nav-link" href="#dashboard">Dashboard</a>
+      <a class="nav-link" href="#kanban">Kanban</a>
+      <a class="nav-link" href="#graph">Graph</a>
+    </div>
+  </div>
+</nav>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
-                <span class="navbar-toggler-icon"></span>
+<section class="hero-section">
+  <div class="container hero-content">
+    <div class="row align-items-center min-vh-100">
+      <div class="col-lg-7">
+        <p class="section-number">01</p>
+        <h1 class="hero-title">Student Productivity Dashboard</h1>
+        <p class="hero-subtitle">
+          A modern task manager built with Bootstrap, jQuery, Cytoscape.js, Chart.js, SortableJS and JavaScript.
+        </p>
+        <a href="#dashboard" class="btn btn-light btn-lg">Open Dashboard</a>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="hero-card">
+          <p class="small-label">Progress</p>
+          <h3 id="heroTotal">0 Tasks</h3>
+          <div class="progress custom-progress">
+            <div id="heroProgress" class="progress-bar" style="width:0%"></div>
+          </div>
+          <small id="heroProgressText">0% completed</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main id="dashboard" class="dashboard-section">
+  <div class="container">
+
+    <div class="section-header">
+      <p class="section-number">02</p>
+      <h2>Dashboard Overview</h2>
+      <p>Manage university tasks, deadlines, priorities and progress.</p>
+    </div>
+
+    <div class="row g-4 mb-5">
+      <div class="col-md-3"><div class="stat-card"><p>Total</p><h2 id="totalTasks">0</h2></div></div>
+      <div class="col-md-3"><div class="stat-card"><p>Completed</p><h2 id="completedTasks">0</h2></div></div>
+      <div class="col-md-3"><div class="stat-card"><p>Pending</p><h2 id="pendingTasks">0</h2></div></div>
+      <div class="col-md-3"><div class="stat-card"><p>High Priority</p><h2 id="highPriorityTasks">0</h2></div></div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <div class="glass-card">
+          <h3><i class="fa-solid fa-plus"></i> Add New Task</h3>
+
+          <label class="form-label">Task Title</label>
+          <input type="text" id="taskInput" class="form-control mb-3" placeholder="Example: Finish database assignment">
+
+          <div class="row">
+            <div class="col-md-6">
+              <label class="form-label">Category</label>
+              <select id="categoryInput" class="form-select mb-3">
+                <option value="University">University</option>
+                <option value="Project">Project</option>
+                <option value="Work">Work</option>
+                <option value="Personal">Personal</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Priority</label>
+              <select id="priorityInput" class="form-select mb-3">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="form-label">Due Date</label>
+          <input type="date" id="dateInput" class="form-control mb-3">
+
+          <button id="addTaskBtn" class="btn btn-primary w-100">
+            <i class="fa-solid fa-circle-plus"></i> Add Task
+          </button>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="glass-card">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <h3><i class="fa-solid fa-list-check"></i> Task Board</h3>
+              <p class="muted-text mb-0">Search, filter, edit and manage tasks.</p>
+            </div>
+            <button id="clearCompletedBtn" class="btn btn-outline-light btn-sm">
+              Clear Completed
             </button>
+          </div>
 
-            <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
-                <ul class="navbar-nav gap-3">
-                    <li class="nav-item"><a class="nav-link" href="#dashboard">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tasks">Tasks</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#graph">Graph</a></li>
-                </ul>
+          <div class="row g-2 mb-4">
+            <div class="col-md-7">
+              <input type="text" id="searchInput" class="form-control" placeholder="Search tasks">
             </div>
-        </div>
-    </nav>
-
-    <!-- Hero -->
-    <section class="hero-section">
-        <div class="hero-overlay"></div>
-
-        <div class="container hero-content">
-            <div class="row align-items-center min-vh-100">
-                <div class="col-lg-7">
-                    <p class="section-number">01</p>
-                    <h1 class="hero-title">Student Productivity Dashboard</h1>
-                    <p class="hero-subtitle">
-                        A modern task management interface built with Bootstrap, jQuery, JavaScript, and Cytoscape.js.
-                    </p>
-
-                    <div class="hero-actions">
-                        <a href="#dashboard" class="btn btn-light btn-lg">Open Dashboard</a>
-                        <a href="#graph" class="btn btn-outline-light btn-lg">View Task Graph</a>
-                    </div>
-                </div>
-
-                <div class="col-lg-5">
-                    <div class="hero-card">
-                        <p class="small-label">Today Overview</p>
-                        <h3 id="heroTotal">0 Tasks</h3>
-                        <p class="muted-text">Track priorities, deadlines, and progress from one place.</p>
-
-                        <div class="progress custom-progress">
-                            <div id="heroProgress" class="progress-bar" style="width: 0%"></div>
-                        </div>
-
-                        <small id="heroProgressText">0% completed</small>
-                    </div>
-                </div>
+            <div class="col-md-5">
+              <select id="filterInput" class="form-select">
+                <option value="All">All Tasks</option>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+              </select>
             </div>
+          </div>
+
+          <div id="taskList" class="task-list"></div>
         </div>
+      </div>
+    </div>
+
+    <section class="analytics-section">
+      <div class="section-header">
+        <p class="section-number">03</p>
+        <h2>Analytics</h2>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="glass-card">
+            <h4>Completion Status</h4>
+            <canvas id="completionChart"></canvas>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="glass-card">
+            <h4>Tasks by Category</h4>
+            <canvas id="categoryChart"></canvas>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- Dashboard -->
-    <main id="dashboard" class="dashboard-section">
+    <section id="kanban" class="kanban-section">
+      <div class="section-header">
+        <p class="section-number">04</p>
+        <h2>Kanban Board</h2>
+        <p>Drag tasks between pending and completed columns.</p>
+      </div>
 
-        <div class="container">
-
-            <div class="section-header">
-                <p class="section-number">02</p>
-                <h2>Dashboard Overview</h2>
-                <p>Manage academic tasks, deadlines, project work, and personal activities.</p>
-            </div>
-
-            <!-- Stats -->
-            <div class="row g-4 mb-5">
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <p>Total</p>
-                        <h2 id="totalTasks">0</h2>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <p>Completed</p>
-                        <h2 id="completedTasks">0</h2>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <p>Pending</p>
-                        <h2 id="pendingTasks">0</h2>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <p>High Priority</p>
-                        <h2 id="highPriorityTasks">0</h2>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Form + Tasks -->
-            <div class="row g-4" id="tasks">
-
-                <div class="col-lg-5">
-                    <div class="glass-card">
-                        <h3>Add New Task</h3>
-
-                        <div class="mb-3">
-                            <label class="form-label">Task Title</label>
-                            <input type="text" id="taskInput" class="form-control" placeholder="Example: Finish database assignment">
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Category</label>
-                                <select id="categoryInput" class="form-select">
-                                    <option value="University">University</option>
-                                    <option value="Project">Project</option>
-                                    <option value="Work">Work</option>
-                                    <option value="Personal">Personal</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Priority</label>
-                                <select id="priorityInput" class="form-select">
-                                    <option value="Low">Low</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="High">High</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Due Date</label>
-                            <input type="date" id="dateInput" class="form-control">
-                        </div>
-
-                        <button id="addTaskBtn" class="btn btn-primary w-100">Add Task</button>
-                    </div>
-                </div>
-
-                <div class="col-lg-7">
-                    <div class="glass-card">
-                        <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3">
-                            <div>
-                                <h3>Task Board</h3>
-                                <p class="muted-text mb-0">Search, filter, complete, and delete tasks.</p>
-                            </div>
-
-                            <button id="clearCompletedBtn" class="btn btn-outline-light btn-sm">
-                                Clear Completed
-                            </button>
-                        </div>
-
-                        <div class="row g-2 mb-4">
-                            <div class="col-md-7">
-                                <input type="text" id="searchInput" class="form-control" placeholder="Search tasks">
-                            </div>
-
-                            <div class="col-md-5">
-                                <select id="filterInput" class="form-select">
-                                    <option value="All">All Tasks</option>
-                                    <option value="Pending">Pending</option>
-                                    <option value="Completed">Completed</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div id="taskList" class="task-list"></div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Graph -->
-            <section id="graph" class="graph-section">
-                <div class="section-header">
-                    <p class="section-number">03</p>
-                    <h2>Task Relationship Graph</h2>
-                    <p>Interactive Cytoscape.js graph showing tasks connected to their categories.</p>
-                </div>
-
-                <div class="glass-card">
-                    <div id="cy"></div>
-                </div>
-            </section>
-
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="kanban-column">
+            <h4>Pending</h4>
+            <div id="pendingColumn" class="kanban-list"></div>
+          </div>
         </div>
 
-    </main>
+        <div class="col-md-6">
+          <div class="kanban-column">
+            <h4>Completed</h4>
+            <div id="completedColumn" class="kanban-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <footer>
-        <p>Built by Shushruth Lohith Kumar using HTML, CSS, Bootstrap, jQuery, JavaScript, and Cytoscape.js.</p>
-    </footer>
+    <section id="graph" class="graph-section">
+      <div class="section-header">
+        <p class="section-number">05</p>
+        <h2>Task Relationship Graph</h2>
+        <p>Interactive Cytoscape.js visualization of tasks and categories.</p>
+      </div>
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+      <div class="glass-card">
+        <div id="cy"></div>
+      </div>
+    </section>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </div>
+</main>
 
-    <!-- Cytoscape -->
-    <script src="https://unpkg.com/cytoscape@3.29.2/dist/cytoscape.min.js"></script>
+<footer>
+  <p>Built by Shushruth Lohith Kumar using HTML, CSS, Bootstrap, jQuery, Chart.js, SortableJS, Cytoscape.js and JavaScript.</p>
+</footer>
 
-    <!-- Custom JS -->
-    <script src="script.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/cytoscape@3.29.2/dist/cytoscape.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="script.js"></script>
+
 </body>
 </html>
