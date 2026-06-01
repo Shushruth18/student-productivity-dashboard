@@ -87,29 +87,33 @@ student-productivity-dashboard/
 
 ### Dashboard Overview
 
-Add a screenshot here:
+The main dashboard provides a summary of tasks, completion statistics, priorities, and task management features.
 
-```markdown
 ![Dashboard](screenshots/dashboard.png)
-```
+
+---
 
 ### Task Analytics
 
-```markdown
+Interactive charts built with Chart.js provide insights into task completion rates and task distribution across categories.
+
 ![Analytics](screenshots/analytics.png)
-```
+
+---
 
 ### Kanban Board
 
-```markdown
-![Kanban](screenshots/kanban.png)
-```
+Drag-and-drop Kanban board implemented using SortableJS for workflow management and task organization.
 
-### Task Graph
+![Kanban Board](screenshots/kanban.png)
 
-```markdown
-![Graph](screenshots/graph.png)
-```
+---
+
+### Task Relationship Graph
+
+Interactive graph visualization built using Cytoscape.js to represent relationships between task categories and individual tasks.
+
+![Task Graph](screenshots/graph.png)
 
 ## How to Run
 
